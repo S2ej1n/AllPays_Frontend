@@ -1,73 +1,29 @@
-# React + TypeScript + Vite
+# Assignment
+이 과제는 안정성과 라이브러리 호환성을 우선하여 React 18.3.1을 기반으로 개발했습니다.  
+React 18 환경과의 호환성을 위해 React Router DOM은 v6, Zustand는 v4 버전을 선택했습니다.  
+또한 차트 라이브러리(Nivo)와의 효율적인 스타일링을 위해 Tailwind CSS를 적용했습니다.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## ⚒️ 사용 기술 스택
+- **Runtime**: Node.js `20.19.5`, npm `10.8.2`
+- **Framework**: Vite, React `18.3.1`
+- **Language**: TypeScript
+- **Routing**: React Router DOM `6.28.2`
+- **State Management**: Zustand `4.5.7`
+- **Styling**: Tailwind CSS *(그래프 라이브러리와의 호환을 위해 채택)*
+- **Graph/Chart**: Nivo
+  
+## 🚀 로컬 실행 방법
+```
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 📝 Commit Convention
+| 타입           | 설명                         |
+| ------------ | -------------------------- |
+| **feat**     | 새로운 기능 추가                  |
+| **fix**      | 버그 수정                      |
+| **docs**     | 문서 수정                      |
+| **style**    | 기능에 영향 없는 스타일 변경           |
+| **refactor** | 리팩토링                       |
+| **chore**    | 프로젝트 설정, 구조 변경              |
