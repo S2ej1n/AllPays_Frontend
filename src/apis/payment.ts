@@ -3,3 +3,5 @@
 import axiosInstance from "./axios.ts";
 import type { ResponseType} from "./axios.ts";
 import type { Payment } from '../types/payments'
+
+// get 요청
