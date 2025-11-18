@@ -1,6 +1,8 @@
 // 라우터 기본 설정
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "../App"
+import Dashboard from "../pages/Dashboard";
+import Merchants from "../pages/merchants";
 
 const router = createBrowserRouter([
         {
@@ -8,7 +10,12 @@ const router = createBrowserRouter([
             element: <App />,
             children: [
                 {
-                    // 하위 페이지 추가 작성
+                    index: true,
+                    element: <Dashboard />
+                },
+                {
+                    path: "Merchats",
+                    element: <Merchants />
                 }
             ]
 
