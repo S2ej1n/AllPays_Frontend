@@ -7,4 +7,18 @@ export function filterStatusType(data: Payment[]) {
         PENDING: 0, SUCCESS: 0, FAILED: 0, CANCELLED: 0
     }
 
+    // 상태랑 돈 빼오기
+    data.forEach((i)=>{
+        temp[i.status] += Number(i.amount);
+    })
+
+    const totalSum = Object.values(temp).reduce((sum, v) => sum + v, 0)
+
+    const result = Object.entries(temp).map(([key, value]) => ({
+            id: key as StatusType,
+            value,
+            percent: totalSum === 0 ? 0 : Number(((value / totalSum) * 100).toFixed(1)),
+        }));
+    
+    return result
 }

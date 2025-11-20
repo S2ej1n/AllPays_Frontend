@@ -3,8 +3,8 @@ import { useGetPayment } from "../../apis/payment"
 import PeriodFilter from "./com/PeriodFilter";
 import TotalCard from "./com/TotalCard";
 import LineChart from "./com/LineChart";
-import DonutChart from "./com/DonutChart";
-import { DonutLegend } from "./com/DonutChart";
+import DonutChart from "./com/DonutPayTypeChart";
+import { DonutLegend } from "./com/DonutPayTypeChart";
 import RankList from "./com/RankList";
 import type { PayType } from "../../types/payments";
 import { filterWeek, filterMonth, filterYear, filterPayType, countMonth, countWeek, countYear,
@@ -105,6 +105,17 @@ export default function Dashboard() {
             <DonutLegend data={donutData} />
           </div>
           <RankList data={donutData} />
+        </div>
+      </section>
+
+      {/* 상태별로 그래프 */}
+      <section className="flex flex-col mt-4 bg-white p-6 rounded-2xl border border-gray-300 shadow-sm">
+        <h2 className="font-bold mb-3 text-lg">결제 상태 분포</h2>
+        <div className="flex flex-col gap-[2rem] [@media(min-width:886px)]:flex-row [@media(min-width:886px)]:items-center items-center">
+          <div className="flex flex-col justify-center">
+            <DonutChart data={donutData} />
+            <DonutLegend data={donutData} />
+          </div>
         </div>
       </section>
     </div>
