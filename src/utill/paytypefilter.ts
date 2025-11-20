@@ -1,8 +1,5 @@
 // 페이 타입별 필터링하는 함수
 
-// 타입별 합 구하고
-// 합에서 퍼센트 구하고
-// 그거에 맞는 값으로 리턴
 import type { Payment, PayType} from "../types/payments";
 
 export function filterPayType(data: Payment[]) {
@@ -20,11 +17,6 @@ export function filterPayType(data: Payment[]) {
     // reduce(sum, 더하는값, 초기값)
     const totalSum = Object.values(temp).reduce((sum, v) => sum + v, 0)
 
-    // {
-    // id: "ONLINE" as PayType,
-    // value: 245600,
-    // percent: 53.2,
-    // },
     const result = Object.entries(temp).map(([key, value]) => ({
         id: key as PayType,
         value,
@@ -33,3 +25,8 @@ export function filterPayType(data: Payment[]) {
 
     return result
 }
+    // {
+    // id: "ONLINE" as PayType,
+    // value: 245600,
+    // percent: 53.2,
+    // },
