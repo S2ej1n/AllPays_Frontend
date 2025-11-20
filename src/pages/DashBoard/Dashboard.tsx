@@ -8,7 +8,7 @@ import { DonutLegend } from "./com/DonutChart";
 import RankList from "./com/RankList";
 import type { PayType } from "../../types/payments";
 import { filterWeek, filterMonth, filterYear, filterPayType, countMonth, countWeek, countYear,
-  filterMonthData
+  filterMonthData, filterWeekData
  } from "../../utill";
 import { getThisWeek, getThisMonth, getThisYear } from "../../utill/getThisBla";
 import { useFilterStore } from "../../store/filterStore";
@@ -31,6 +31,7 @@ export default function Dashboard() {
   if (period === "WEEK") {
     const weekData = filterWeek(data ?? []);
     const weekCounts = countWeek(data ?? []);
+    const weekPayments =filterWeekData(data ?? []);
     const thisWeek = getThisWeek();
 
      // 현재 주차가 없을 경우 값 추가
@@ -45,6 +46,7 @@ export default function Dashboard() {
 
     totalAmount = weekData.find(m => m.x === thisWeek)?.y ?? 0;
     totalCount = weekCounts[thisWeek] ?? 0;
+    donutData = filterPayType(weekPayments);
   }
 
   if (period === "MONTH") {

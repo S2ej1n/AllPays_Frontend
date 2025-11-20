@@ -51,3 +51,14 @@ export function countWeek(data: Payment[]) {
 
   return count;
 }
+
+// 해당 주 의 값만 가져오기 [도넛 차트를 위한 필터링 함수 제작]
+export function filterWeekData(data: Payment[]) {
+  const today = new Date();
+ const thisWeekKey = getWeekString(today); // 오늘은 // "11월 2주차"
+
+  return data.filter(p => {
+    const weekKey = getWeekString(new Date(p.paymentAt)); // "11월 2주차"
+    return weekKey === thisWeekKey;
+  });
+}
