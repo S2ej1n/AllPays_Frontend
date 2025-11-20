@@ -1,7 +1,7 @@
 // 라우터 기본 설정
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "../App"
-import Dashboard from "../pages/Dashboard";
+import Dashboard from "../pages/DashBoard/Dashboard";
 import Merchants from "../pages/Merchants";
 
 const router = createBrowserRouter([

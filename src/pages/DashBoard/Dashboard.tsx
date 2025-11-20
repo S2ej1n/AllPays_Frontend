@@ -1,5 +1,5 @@
 // 메인 대시보드
-import { useGetPayment } from "../apis/payment"
+import { useGetPayment } from "../../apis/payment"
 
 export default function Dashboard() {
   const { data, isLoading, isError } = useGetPayment();

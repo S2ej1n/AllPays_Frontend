@@ -1,4 +1,5 @@
 // 모바일버전 헤더 + navbar
+// 라우팅 기반이므로 pathname 사용해서 스타일링 변경
 import { useNavigate, useLocation } from "react-router-dom";
 
 export default function MobileNavbar() {
