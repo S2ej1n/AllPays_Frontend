@@ -2,7 +2,7 @@
 function Merchants() {
   return (
     <>
-      merchants
+      업데이트 중입니다..
     </>
   )
 }

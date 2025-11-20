@@ -8,7 +8,7 @@ import type { Payment } from "../types/payments";
 export function filterMonth(data: Payment[]){
     // 유사 배열 객체 
     // Array.from({length: 5}, (v, i) => i);
-    const result = Array.from({length:12},(v, i)=>({x: `${i + 1}월`, y:0}));
+    const result = Array.from({length:12},(v, i)=>({x: i + 1, y:0}));
 
     // for문 돌려
     data.forEach((i) => {
