@@ -5,7 +5,13 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        rank499: "499px",
+        rank886: "886px",
+        rank1205: "1205px",
+      },
+    },
   },
   plugins: [
     require("daisyui"),

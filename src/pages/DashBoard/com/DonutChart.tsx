@@ -1,9 +1,8 @@
 // 결제 수단을 구분하는 동글 차트, Nivo 라이브러리 사용
-
 import { ResponsivePie } from "@nivo/pie";
 import type { PayType } from "../../../types/payments";
 
-interface DonutChartProps {
+export interface DonutChartProps {
     data: Array<{
         id: string; //온라인
         value: number; //금액 합계
@@ -16,7 +15,7 @@ export const chartColors = ["#5f8df6", "#9cf3a8", "#c9abf6", "#FFB3DA", "#D4D4D4
 
 export default function DonutChart({ data } : DonutChartProps) {
   return (
-    <div className="w-[20rem] h-[20rem] px-6">
+    <div className="w-full max-w-[20rem] h-[25rem] mx-auto">
       <ResponsivePie
         data={data}
         innerRadius={0.4}
@@ -48,7 +47,7 @@ export default function DonutChart({ data } : DonutChartProps) {
 
 export function DonutLegend({ data }: DonutChartProps) {
   return (
-    <div className="flex flex-wrap justify-center gap-4 w-[18rem] mt-6 px-6">
+    <div className="flex flex-wrap justify-center gap-3 px-6">
       {data.map((item, index) => (
         <div key={item.id} className="flex items-center gap-2">
           <span
