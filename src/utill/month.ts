@@ -5,6 +5,7 @@
 
 import type { Payment } from "../types/payments";
 
+// 그래프 데이터 만들기
 export function filterMonth(data: Payment[]){
     // 유사 배열 객체 
     // Array.from({length: 5}, (v, i) => i);
@@ -19,4 +20,17 @@ export function filterMonth(data: Payment[]){
     });
 
     return result;
+}
+
+// 월별 거래 건수 계산하기
+export function countMonth(data: Payment[]) {
+  const count = Array.from({ length: 12 }, () => 0);
+
+  data.forEach(i => {
+    const date = new Date(i.paymentAt);
+    const month = date.getMonth();
+    count[month] += 1;
+  });
+
+  return count;
 }

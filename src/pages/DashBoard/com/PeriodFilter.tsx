@@ -22,7 +22,7 @@ export default function PeriodFilter() {
             </button>
             <button className={buttonClick(period === "MONTH")}
                 onClick={() => setPeriod("MONTH")}>
-                월별
+                이번달
             </button>
             <button className={buttonClick(period === "YEAR")}
                 onClick={() => setPeriod("YEAR")}>

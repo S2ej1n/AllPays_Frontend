@@ -6,7 +6,7 @@ import LineChart from "./com/LineChart";
 import DonutChart from "./com/DonutChart";
 import { DonutLegend } from "./com/DonutChart";
 import RankList from "./com/RankList";
-import { filterWeek, filterMonth, filterYear, filterPayType } from "../../utill";
+import { filterWeek, filterMonth, filterYear, filterPayType, countMonth } from "../../utill";
 import { getThisWeek, getThisMonth, getThisYear } from "../../utill/getThisBla";
 import { useFilterStore } from "../../store/filterStore";
 
@@ -20,26 +20,37 @@ export default function Dashboard() {
   const donutData = filterPayType(data??[]);
 
   let totalAmount = 0;
+  let totalCount = 0;
   let lineData: { x: string; y: number }[] = [];
 
   if (period === "WEEK") {
     const weekData = filterWeek(data ?? []);
+    
+    const thisWeek = getThisWeek();
+
+     // 현재 주차가 없을 경우 값 추가
+    if (!weekData.find(m => m.x === thisWeek)) {
+      weekData.push({ x: thisWeek, y: 0 });
+    }
+
     lineData = weekData.map(m => ({
       x: m.x,
       y: m.y,
     }));
-    const thisWeek = getThisWeek();
+
     totalAmount = weekData.find(m => m.x === thisWeek)?.y ?? 0;
   }
 
   if (period === "MONTH") {
     const monthData = filterMonth(data ?? []);
+    const monthCounts = countMonth(data ?? []);
     lineData = monthData.map(m => ({
       x: `${m.x}월`,
       y: m.y,
     }));
     const thisMonth = getThisMonth();
     totalAmount = monthData.find(m => m.x === thisMonth)?.y ?? 0;
+    totalCount = monthCounts[thisMonth - 1] ?? 0;
   }
 
   if (period === "YEAR") {
@@ -59,7 +70,8 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
         <TotalCard title="총 매출" 
         value={`₩ ${totalAmount.toLocaleString()}`} />
-        <TotalCard title="거래 건수" value="99건" />
+        <TotalCard title="거래 건수" 
+        value={`${totalCount}건`} />
       </div>
 
       <div className="bg-white p-5 mt-4 rounded-2xl shadow-sm border border-gray-300">
