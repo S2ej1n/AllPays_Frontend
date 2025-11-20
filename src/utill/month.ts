@@ -12,6 +12,8 @@ export function filterMonth(data: Payment[]){
 
     // for문 돌려
     data.forEach((i) => {
+      // 성공한 거래만
+        if (i.status !== "SUCCESS") return;
         // Date 객체로 만들기 (string으로 하면 일일이 분리하지만, Date객체로 만들면 분리하기 easy합니다)
         const date = new Date(i.paymentAt);
         const month = date.getMonth();
@@ -26,6 +28,7 @@ export function countMonth(data: Payment[]) {
   const count = Array.from({ length: 12 }, () => 0);
 
   data.forEach(i => {
+    if (i.status !== "SUCCESS") return;
     const date = new Date(i.paymentAt);
     const month = date.getMonth();
     count[month] += 1;
@@ -40,6 +43,7 @@ export function filterMonthData(data: Payment[]) {
   const thisMonth = new Date().getMonth() + 1;
 
   return data.filter(p => {
+    if (p.status !== "SUCCESS") return false;
     const date = new Date(p.paymentAt);
     return date.getMonth() + 1 === thisMonth;
   });
