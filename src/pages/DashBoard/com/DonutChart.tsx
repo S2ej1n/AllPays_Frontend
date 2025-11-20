@@ -16,7 +16,7 @@ export const chartColors = ["#5f8df6", "#9cf3a8", "#c9abf6", "#FFB3DA", "#D4D4D4
 
 export default function DonutChart({ data } : DonutChartProps) {
   return (
-    <div className="w-[18rem] h-[18rem]">
+    <div className="w-[20rem] h-[20rem] px-6">
       <ResponsivePie
         data={data}
         innerRadius={0.4}
@@ -27,11 +27,18 @@ export default function DonutChart({ data } : DonutChartProps) {
         cornerRadius={1}
         enableArcLinkLabels={false}
         enableArcLabels={false}
+        // 마우스 올렸을시 뜨는 칸
         tooltip={({ datum }) => (
-          <div className="bg-white shadow-md p-2 rounded-xl text-sm">
-            <div className="font-semibold">{datum.id}</div>
+          <div className="bg-white shadow-md p-2 px-4 rounded-xl text-sm w-[7rem]">
+            <div className="flex items-center gap-2">
+                <span
+                    className="w-3 h-3 rounded-full inline-block"
+                    style={{ backgroundColor: datum.color }}
+                />
+                <span className="font-semibold text-base">{datum.id}</span>
+            </div>
             <div>{datum.data.percent}%</div>
-            <div>{datum.value.toLocaleString()}₩</div>
+            <div className="text-gray-500">{datum.value.toLocaleString()}₩</div>
           </div>
         )}
       />
@@ -41,7 +48,7 @@ export default function DonutChart({ data } : DonutChartProps) {
 
 export function DonutLegend({ data }: DonutChartProps) {
   return (
-    <div className="flex flex-wrap gap-4 w-[18rem] mt-6">
+    <div className="flex flex-wrap justify-center gap-4 w-[18rem] mt-6 px-6">
       {data.map((item, index) => (
         <div key={item.id} className="flex items-center gap-2">
           <span
