@@ -38,8 +38,8 @@ export default function PeriodFilter() {
             className="select px-3 border border-gray-300 shadow-sm text-sm rounded-xl w-52"
             >
             <option>한국 (KRW)</option>
-            <option>미국 (USD)</option>
-            <option>일본 (JPY)</option>
+            {/* <option>미국 (USD)</option>
+            <option>일본 (JPY)</option> */}
             </select>
         </div>
     </section>

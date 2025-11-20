@@ -5,10 +5,9 @@
 
 import type { Payment } from "../types/payments";
 
-// 그래프 데이터 만들기
+// line 그래프 데이터 만들기
 export function filterMonth(data: Payment[]){
-    // 유사 배열 객체 
-    // Array.from({length: 5}, (v, i) => i);
+    // 유사 배열 객체 Array.from({length: 5}, (v, i) => i);
     const result = Array.from({length:12},(_, i)=>({x: i + 1, y:0}));
 
     // for문 돌려
@@ -33,4 +32,15 @@ export function countMonth(data: Payment[]) {
   });
 
   return count;
+}
+
+
+// 해당 월의 값만 가져오기 [도넛 차트를 위한 필터링 함수 제작]
+export function filterMonthData(data: Payment[]) {
+  const thisMonth = new Date().getMonth() + 1;
+
+  return data.filter(p => {
+    const date = new Date(p.paymentAt);
+    return date.getMonth() + 1 === thisMonth;
+  });
 }

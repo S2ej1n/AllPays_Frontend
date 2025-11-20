@@ -32,3 +32,13 @@ export function countYear(data: Payment[]) {
 
   return count;
 }
+
+// 해당 년도의 값만 가져오기 [도넛 차트를 위한 필터링 함수 제작]
+export function filterYearData(data: Payment[]) {
+  const thisYear = new Date().getFullYear();
+
+  return data.filter(p => {
+    const date = new Date(p.paymentAt);
+    return date.getFullYear() === thisYear;
+  });
+}

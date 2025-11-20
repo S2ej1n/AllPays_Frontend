@@ -6,7 +6,10 @@ import LineChart from "./com/LineChart";
 import DonutChart from "./com/DonutChart";
 import { DonutLegend } from "./com/DonutChart";
 import RankList from "./com/RankList";
-import { filterWeek, filterMonth, filterYear, filterPayType, countMonth, countWeek, countYear } from "../../utill";
+import type { PayType } from "../../types/payments";
+import { filterWeek, filterMonth, filterYear, filterPayType, countMonth, countWeek, countYear,
+  filterMonthData, filterWeekData, filterYearData
+ } from "../../utill";
 import { getThisWeek, getThisMonth, getThisYear } from "../../utill/getThisBla";
 import { useFilterStore } from "../../store/filterStore";
 
@@ -17,16 +20,15 @@ export default function Dashboard() {
   if (isLoading) return <div>로딩중</div>;
   if (isError) return <div>에러</div>;
 
-  const donutData = filterPayType(data??[]);
-
   let totalAmount = 0;
   let totalCount = 0;
   let lineData: { x: string; y: number }[] = [];
+  let donutData:{ id:PayType; value: number; percent: number; }[] = [];
 
   if (period === "WEEK") {
     const weekData = filterWeek(data ?? []);
     const weekCounts = countWeek(data ?? []);
-    
+    const weekPayments =filterWeekData(data ?? []);
     const thisWeek = getThisWeek();
 
      // 현재 주차가 없을 경우 값 추가
@@ -41,11 +43,13 @@ export default function Dashboard() {
 
     totalAmount = weekData.find(m => m.x === thisWeek)?.y ?? 0;
     totalCount = weekCounts[thisWeek] ?? 0;
+    donutData = filterPayType(weekPayments);
   }
 
   if (period === "MONTH") {
     const monthData = filterMonth(data ?? []);
     const monthCounts = countMonth(data ?? []);
+    const monthPayments = filterMonthData(data?? []);
     lineData = monthData.map(m => ({
       x: `${m.x}월`,
       y: m.y,
@@ -53,11 +57,13 @@ export default function Dashboard() {
     const thisMonth = getThisMonth();
     totalAmount = monthData.find(m => m.x === thisMonth)?.y ?? 0;
     totalCount = monthCounts[thisMonth - 1] ?? 0;
+    donutData = filterPayType(monthPayments);
   }
 
   if (period === "YEAR") {
     const yearData = filterYear(data ?? []);
     const yearCounts = countYear(data ?? []);
+    const yearPayments = filterYearData(data ?? []);
     lineData = yearData.map(m => ({
       x: `${m.x}년`,
       y: m.y,
@@ -65,6 +71,7 @@ export default function Dashboard() {
     const thisYear = getThisYear();
     totalAmount = yearData.find(m => m.x === thisYear)?.y ?? 0;
     totalCount = yearCounts[thisYear] ?? 0;
+    donutData = filterPayType(yearPayments);
   }
 
   return(
