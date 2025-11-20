@@ -1,13 +1,13 @@
 // 결제 수단을 구분하는 동글 차트, Nivo 라이브러리 사용
 import { ResponsivePie } from "@nivo/pie";
 import type { PayType } from "../../../types/payments";
+import { PayTypeMapping } from "../../../types/payments";
 
 export interface DonutChartProps {
     data: Array<{
-        id: string; //온라인
+        id: PayType; //온라인
         value: number; //금액 합계
         percent: number; // 비율
-        payType: PayType;
     }>;
 }
 
@@ -34,7 +34,9 @@ export default function DonutChart({ data } : DonutChartProps) {
                     className="w-3 h-3 rounded-full inline-block"
                     style={{ backgroundColor: datum.color }}
                 />
-                <span className="font-semibold text-base">{datum.id}</span>
+                <span className="font-semibold text-base">
+                  {PayTypeMapping[datum.id as PayType]}
+                </span>
             </div>
             <div>{datum.data.percent}%</div>
             <div className="text-gray-500">{datum.value.toLocaleString()}₩</div>
@@ -54,7 +56,9 @@ export function DonutLegend({ data }: DonutChartProps) {
             className="w-3 h-3 rounded-full"
             style={{ backgroundColor: chartColors[index] }}
           />
-          <span className="text-sm text-gray-600">{item.id}</span>
+          <span className="text-sm text-gray-600">
+            {PayTypeMapping[item.id as PayType]}
+          </span>
         </div>
       ))}
     </div>

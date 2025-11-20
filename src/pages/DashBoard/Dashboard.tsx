@@ -21,34 +21,29 @@ export default function Dashboard() {
   // 매핑되도록 할것
   const donutData = [
     {
-    id: "온라인",
+    id: "ONLINE" as PayType,
     value: 245600,
     percent: 53.2,
-    payType: "ONLINE" as PayType,
     },
     {
-      id: "단말기",
+      id: "DEVICE" as PayType,
       value: 122000,
       percent: 26.4,
-      payType: "DEVICE" as PayType,
     },
     {
-      id: "모바일",
+      id: "MOBILE" as PayType,
       value: 48000,
       percent: 10.4,
-      payType: "MOBILE" as PayType,
     },
     {
-      id: "가상계좌",
+      id: "VACT" as PayType,
       value: 27000,
       percent: 5.9,
-      payType: "VACT" as PayType,
     },
     {
-      id: "정기결제",
+      id: "BILLING" as PayType,
       value: 16000,
       percent: 3.5,
-      payType: "BILLING" as PayType,
     },
   ]
 
@@ -78,14 +73,6 @@ export default function Dashboard() {
           <RankList data={donutData} />
         </div>
       </section>
-
-      {/* <ul>
-        {data?.map((payment) => (
-          <li key={payment.paymentCode}>
-            {payment.amount}원
-          </li>
-        ))}
-      </ul> */}
     </div>
   )
 }
