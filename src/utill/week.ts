@@ -24,6 +24,7 @@ export function filterWeek(data: Payment[]) {
   const map: Record<string, number> = {};
 
   data.forEach(p => {
+    if (p.status !== "SUCCESS") return;
     const date = new Date(p.paymentAt);
     const weekKey = getWeekString(date);
 
@@ -42,6 +43,7 @@ export function countWeek(data: Payment[]) {
   const count: Record<string, number> = {};
 
   data.forEach(p => {
+    if (p.status !== "SUCCESS") return;
     const date = new Date(p.paymentAt);
     const weekKey = getWeekString(date); // "11월 2주차"
     
@@ -58,6 +60,7 @@ export function filterWeekData(data: Payment[]) {
  const thisWeekKey = getWeekString(today); // 오늘은 // "11월 2주차"
 
   return data.filter(p => {
+    if (p.status !== "SUCCESS") return false;
     const weekKey = getWeekString(new Date(p.paymentAt)); // "11월 2주차"
     return weekKey === thisWeekKey;
   });
