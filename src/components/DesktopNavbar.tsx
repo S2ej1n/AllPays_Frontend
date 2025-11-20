@@ -8,7 +8,7 @@ export default function DesktopNavbar() {
     return (
         <aside className="hidden md:flex flex-col w-60 bg-white p-4 gap-4
         border-r border-gray-300">
-            <div className="p-2 font-bold">Pays</div>
+            <div className="p-2 font-bold">AllPays</div>
             <button className={`bg-white p-2 text-left ${
                     pathname === "/" ? "font-bold text-blue-600" : "font-medium"
                     }`}
