@@ -5,10 +5,13 @@ import TotalCard from "./com/TotalCard";
 import LineChart from "./com/LineChart";
 import DonutChart from "./com/DonutPayTypeChart";
 import { DonutLegend } from "./com/DonutPayTypeChart";
+import StatusChart from "./com/StatusChart";
+import { StatusLegend } from "./com/StatusChart";
 import RankList from "./com/RankList";
-import type { PayType } from "../../types/payments";
+import type { PayType, StatusType } from "../../types/payments";
 import { filterWeek, filterMonth, filterYear, filterPayType, countMonth, countWeek, countYear,
-  filterMonthData, filterWeekData, filterYearData, counttotalWeek, counttotalMonth, counttotalYear
+  filterMonthData, filterWeekData, filterYearData, counttotalWeek, counttotalMonth, counttotalYear,
+  filterStatusType
  } from "../../utill";
 import { getThisWeek, getThisMonth, getThisYear } from "../../utill/getThisBla";
 import { useFilterStore } from "../../store/filterStore";
@@ -25,6 +28,10 @@ export default function Dashboard() {
   let tCount = 0;
   let lineData: { x: string; y: number }[] = [];
   let donutData:{ id:PayType; value: number; percent: number; }[] = [];
+
+  // let statusData:{ id:StatusType; value: number; percent: number; }[] = [];
+  const statusData = filterStatusType(data ?? []);
+
 
   if (period === "WEEK") {
     const weekData = filterWeek(data ?? []);
@@ -113,8 +120,8 @@ export default function Dashboard() {
         <h2 className="font-bold mb-3 text-lg">결제 상태 분포</h2>
         <div className="flex flex-col gap-[2rem] [@media(min-width:886px)]:flex-row [@media(min-width:886px)]:items-center items-center">
           <div className="flex flex-col justify-center">
-            <DonutChart data={donutData} />
-            <DonutLegend data={donutData} />
+            <StatusChart data={statusData} />
+            <StatusLegend data={statusData} />
           </div>
         </div>
       </section>
