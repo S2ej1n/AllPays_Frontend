@@ -1,10 +1,5 @@
 // 오늘, 일주일, 월별, 연도별 계산
 
-// 오늘
-export function getToday(): string {
-  return new Date().toISOString().slice(0, 10); 
-}
-
 // 최근 7일 -> 시작날짜 반환
 export function getLast7Days(): string {
   const now = new Date();
