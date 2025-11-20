@@ -8,7 +8,7 @@ import { DonutLegend } from "./com/DonutChart";
 import RankList from "./com/RankList";
 import type { PayType } from "../../types/payments";
 import { filterWeek, filterMonth, filterYear, filterPayType, countMonth, countWeek, countYear,
-  filterMonthData, filterWeekData
+  filterMonthData, filterWeekData, filterYearData
  } from "../../utill";
 import { getThisWeek, getThisMonth, getThisYear } from "../../utill/getThisBla";
 import { useFilterStore } from "../../store/filterStore";
@@ -19,9 +19,6 @@ export default function Dashboard() {
 
   if (isLoading) return <div>로딩중</div>;
   if (isError) return <div>에러</div>;
-
-  // const donutData = filterPayType(data??[]);
-
 
   let totalAmount = 0;
   let totalCount = 0;
@@ -66,6 +63,7 @@ export default function Dashboard() {
   if (period === "YEAR") {
     const yearData = filterYear(data ?? []);
     const yearCounts = countYear(data ?? []);
+    const yearPayments = filterYearData(data ?? []);
     lineData = yearData.map(m => ({
       x: `${m.x}년`,
       y: m.y,
@@ -73,6 +71,7 @@ export default function Dashboard() {
     const thisYear = getThisYear();
     totalAmount = yearData.find(m => m.x === thisYear)?.y ?? 0;
     totalCount = yearCounts[thisYear] ?? 0;
+    donutData = filterPayType(yearPayments);
   }
 
   return(
