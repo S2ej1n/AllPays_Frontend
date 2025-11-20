@@ -2,7 +2,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "../App"
 import Dashboard from "../pages/Dashboard";
-import Merchants from "../pages/merchants";
+import Merchants from "../pages/Merchants";
 
 const router = createBrowserRouter([
         {
@@ -14,7 +14,7 @@ const router = createBrowserRouter([
                     element: <Dashboard />
                 },
                 {
-                    path: "Merchats",
+                    path: "merchats",
                     element: <Merchants />
                 }
             ]
