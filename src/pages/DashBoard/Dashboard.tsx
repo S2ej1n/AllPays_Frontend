@@ -7,6 +7,7 @@ import DonutChart from "./com/DonutChart";
 import { DonutLegend } from "./com/DonutChart";
 import RankList from "./com/RankList";
 import type { PayType } from "../../types/payments";
+import { filterMonth } from "../../utill";
 
 export default function Dashboard() {
   const { data, isLoading, isError } = useGetPayment();
@@ -14,19 +15,8 @@ export default function Dashboard() {
   if (isLoading) return <div>로딩중</div>;
   if (isError) return <div>에러</div>;
 
-  // 데이터 계산 함수 만들고 월 자동으로 나오게 할것
-  const monthData = [
-    { x: "1월",  y: 8000 },
-    { x: "2월",  y: 12000 },
-    { x: "3월",  y: 2000 },
-    { x: "6월",  y: 31000 },
-    { x: "7월",  y: 28000 },
-    { x: "8월",  y: 52000 },
-    { x: "9월",  y: 0 },
-    { x: "10월", y: 2000 },
-    { x: "11월", y: 7000 },
-    { x: "12월", y: 6500 },
-  ];
+  // 객체 키를 x, y 라고 통일해야 오류 안남
+  const monthData = filterMonth(data ?? []);
 
   // 매핑되도록 할것
   const donutData = [
