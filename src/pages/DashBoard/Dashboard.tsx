@@ -7,7 +7,7 @@ import DonutChart from "./com/DonutChart";
 import { DonutLegend } from "./com/DonutChart";
 import RankList from "./com/RankList";
 import { filterWeek, filterMonth, filterYear, filterPayType } from "../../utill";
-import { getThisMonth, getThisYear } from "../../utill/getThisBla";
+import { getThisWeek, getThisMonth, getThisYear } from "../../utill/getThisBla";
 import { useFilterStore } from "../../store/filterStore";
 
 export default function Dashboard() {
@@ -23,7 +23,13 @@ export default function Dashboard() {
   let lineData: { x: string; y: number }[] = [];
 
   if (period === "WEEK") {
-
+    const weekData = filterWeek(data ?? []);
+    lineData = weekData.map(m => ({
+      x: m.x,
+      y: m.y,
+    }));
+    const thisWeek = getThisWeek();
+    totalAmount = weekData.find(m => m.x === thisWeek)?.y ?? 0;
   }
 
   if (period === "MONTH") {
