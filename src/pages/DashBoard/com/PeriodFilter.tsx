@@ -1,7 +1,7 @@
 // 기간 필터링 컴포넌트
 export default function PeriodFilter() {
   return (
-    <section className="flex flex-col gap-[1rem] [@media(min-width:960px)]:flex-row [@media(min-width:960px)]:gap-[10rem] p-4 px-5 bg-white border border-gray-300 shadow-sm rounded-2xl">
+    <section className="flex flex-col gap-[1rem] [@media(min-width:960px)]:flex-row [@media(min-width:960px)]:gap-[10.5rem] p-4 px-5 bg-white border border-gray-300 shadow-sm rounded-2xl">
         <div>
             <p className="font-bold mb-2">기간 선택</p>
             <div className="flex flex-row gap-2">
