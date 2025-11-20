@@ -6,7 +6,7 @@ import LineChart from "./com/LineChart";
 import DonutChart from "./com/DonutChart";
 import { DonutLegend } from "./com/DonutChart";
 import RankList from "./com/RankList";
-import { filterWeek, filterMonth, filterYear, filterPayType, countMonth, countWeek } from "../../utill";
+import { filterWeek, filterMonth, filterYear, filterPayType, countMonth, countWeek, countYear } from "../../utill";
 import { getThisWeek, getThisMonth, getThisYear } from "../../utill/getThisBla";
 import { useFilterStore } from "../../store/filterStore";
 
@@ -57,12 +57,14 @@ export default function Dashboard() {
 
   if (period === "YEAR") {
     const yearData = filterYear(data ?? []);
+    const yearCounts = countYear(data ?? []);
     lineData = yearData.map(m => ({
       x: `${m.x}년`,
       y: m.y,
     }));
     const thisYear = getThisYear();
     totalAmount = yearData.find(m => m.x === thisYear)?.y ?? 0;
+    totalCount = yearCounts[thisYear] ?? 0;
   }
 
   return(

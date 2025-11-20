@@ -17,3 +17,18 @@ export function filterYear(data: Payment[]) {
     y: total,
   }));
 }
+
+// 거래 건수
+export function countYear(data: Payment[]) {
+  const count: Record<number, number> = {};
+
+  data.forEach(p => {
+    const date = new Date(p.paymentAt);
+    const year = date.getFullYear();
+    
+    if (!count[year]) count[year] = 0;
+    count[year] += 1;
+  });
+
+  return count;
+}
