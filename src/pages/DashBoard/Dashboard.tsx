@@ -7,7 +7,7 @@ import DonutChart from "./com/DonutChart";
 import { DonutLegend } from "./com/DonutChart";
 import RankList from "./com/RankList";
 import { filterMonth, filterPayType } from "../../utill";
-import { getThisMonth } from "../../utill/getThismonth";
+import { getThisMonth } from "../../utill/getThisBla";
 
 export default function Dashboard() {
   const { data, isLoading, isError } = useGetPayment();
