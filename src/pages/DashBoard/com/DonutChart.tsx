@@ -9,28 +9,48 @@ interface DonutChartProps {
         value: number; //금액 합계
         percent: number; // 비율
         payType: PayType;
-    }>
+    }>;
 }
+
+export const chartColors = ["#5f8df6", "#9cf3a8", "#c9abf6", "#FFB3DA", "#D4D4D4"];
 
 export default function DonutChart({ data } : DonutChartProps) {
   return (
-    <div style={{ width: "350px", height: "350px" }}>
+    <div className="w-[18rem] h-[18rem]">
       <ResponsivePie
         data={data}
-        innerRadius={0.65}  // 도넛 형태
-        colors={["#80A6FF", "#9CF3D1", "#C8A4FF", "#FFB3DA", "#D4D4D4"]}
-        padAngle={2}
-        cornerRadius={4}
+        innerRadius={0.4}
+        activeOuterRadiusOffset={8} // 마우스 hover
+        arcLinkLabelsSkipAngle={6}
+        colors={chartColors}
+        padAngle={1}
+        cornerRadius={1}
         enableArcLinkLabels={false}
         enableArcLabels={false}
         tooltip={({ datum }) => (
-          <div className="bg-white shadow-md p-3 rounded-xl text-sm">
+          <div className="bg-white shadow-md p-2 rounded-xl text-sm">
             <div className="font-semibold">{datum.id}</div>
             <div>{datum.data.percent}%</div>
-            <div>{datum.value.toLocaleString()} KRW</div>
+            <div>{datum.value.toLocaleString()}₩</div>
           </div>
         )}
       />
     </div>
   )
+}
+
+export function DonutLegend({ data }: DonutChartProps) {
+  return (
+    <div className="flex flex-wrap gap-4 w-[18rem] mt-6">
+      {data.map((item, index) => (
+        <div key={item.id} className="flex items-center gap-2">
+          <span
+            className="w-3 h-3 rounded-full"
+            style={{ backgroundColor: chartColors[index] }}
+          />
+          <span className="text-sm text-gray-600">{item.id}</span>
+        </div>
+      ))}
+    </div>
+  );
 }
