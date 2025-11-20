@@ -2,7 +2,7 @@
 import { useGethook } from './hook.ts'
 import type { Payment } from '../types/payments'
 
-// get 요청
+// 페이먼트로 get 요청
 export const useGetPayment = () => {
     return useGethook<Payment[]>("/payments/list");
 }
