@@ -7,7 +7,7 @@ import DonutChart from "./com/DonutChart";
 import { DonutLegend } from "./com/DonutChart";
 import RankList from "./com/RankList";
 import type { PayType } from "../../types/payments";
-import { filterMonth } from "../../utill";
+import { filterMonth, filterPayType } from "../../utill";
 
 export default function Dashboard() {
   const { data, isLoading, isError } = useGetPayment();
@@ -18,34 +18,39 @@ export default function Dashboard() {
   // 객체 키를 x, y 라고 통일해야 오류 안남
   const monthData = filterMonth(data ?? []);
 
+  // 테스트용입니다요
+  const test = filterPayType(data??[]);
+  console.log(test)
+
   // 매핑되도록 할것
-  const donutData = [
-    {
-    id: "ONLINE" as PayType,
-    value: 245600,
-    percent: 53.2,
-    },
-    {
-      id: "DEVICE" as PayType,
-      value: 122000,
-      percent: 26.4,
-    },
-    {
-      id: "MOBILE" as PayType,
-      value: 48000,
-      percent: 10.4,
-    },
-    {
-      id: "VACT" as PayType,
-      value: 27000,
-      percent: 5.9,
-    },
-    {
-      id: "BILLING" as PayType,
-      value: 16000,
-      percent: 3.5,
-    },
-  ]
+  const donutData = filterPayType(data??[]);
+  // [
+  //   {
+  //   id: "ONLINE" as PayType,
+  //   value: 245600,
+  //   percent: 53.2,
+  //   },
+  //   {
+  //     id: "DEVICE" as PayType,
+  //     value: 122000,
+  //     percent: 26.4,
+  //   },
+  //   {
+  //     id: "MOBILE" as PayType,
+  //     value: 48000,
+  //     percent: 10.4,
+  //   },
+  //   {
+  //     id: "VACT" as PayType,
+  //     value: 27000,
+  //     percent: 5.9,
+  //   },
+  //   {
+  //     id: "BILLING" as PayType,
+  //     value: 16000,
+  //     percent: 3.5,
+  //   },
+  // ]
 
   return(
     <div>
