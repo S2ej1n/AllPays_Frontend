@@ -5,6 +5,7 @@ import TotalCard from "./com/TotalCard";
 import LineChart from "./com/LineChart";
 import DonutChart from "./com/DonutChart";
 import { DonutLegend } from "./com/DonutChart";
+import RankList from "./com/RankList";
 import type { PayType } from "../../types/payments";
 
 export default function Dashboard() {
@@ -27,6 +28,7 @@ export default function Dashboard() {
     { x: "12월", y: 6500 },
   ];
 
+  // 매핑되도록 할것
   const donutData = [
     {
     id: "온라인",
@@ -75,10 +77,15 @@ export default function Dashboard() {
       </div>
 
       <section className="flex flex-col mt-4 bg-white p-6 rounded-2xl border border-gray-300 shadow-sm">
-        <h2 className="font-bold mb-4">결제 수단 현황</h2>
-        <div className="flex flex-col justify-center">
-          <DonutChart data={donutData} />
-          <DonutLegend data={donutData} />
+        <h2 className="font-bold mb-3 text-lg">결제 수단 현황</h2>
+        <div className="flex flex-col gap-[2rem]
+        [@media(min-width:886px)]:flex-row 
+        [@media(min-width:886px)]:items-center items-center">
+          <div className="flex flex-col justify-center">
+            <DonutChart data={donutData} />
+            <DonutLegend data={donutData} />
+          </div>
+          <RankList data={donutData} />
         </div>
       </section>
 

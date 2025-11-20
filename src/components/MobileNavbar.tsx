@@ -9,7 +9,7 @@ export default function MobileNavbar() {
     return(
     <div className="flex flex-col md:hidden w-full bg-white 
         p-3 justify-between border-b border-gray-300">
-        <div className="p-3 font-bold">AllPays</div>
+        <h1 className="p-3 font-bold">AllPays</h1>
         <nav className="flex gap-2 pl-3">
             <button className={`bg-white pr-4 py-2 ${
                     pathname === "/" ? "font-bold text-blue-600" : "font-medium"
