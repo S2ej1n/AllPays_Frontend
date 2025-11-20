@@ -1,6 +1,8 @@
 // 결제 수단 횟수 랭크 - 도넛차트에 귀속
 import { chartColors } from "./DonutChart";
 import type { DonutChartProps } from "./DonutChart";
+import type { PayType } from "../../../types/payments";
+import { PayTypeMapping } from "../../../types/payments";
 
 export default function RankList({data} : DonutChartProps ) {
   return (
@@ -20,7 +22,9 @@ export default function RankList({data} : DonutChartProps ) {
             </div>
             {/* 아이템 이름*/}
             <div className="w-[8rem]">
-              <div className="font-semibold">{item.id}</div>
+              <div className="font-semibold">
+                {PayTypeMapping[item.id as PayType]}
+              </div>
               <div className="text-gray-500 text-base">
                 {item.value.toLocaleString()} KRW
               </div>

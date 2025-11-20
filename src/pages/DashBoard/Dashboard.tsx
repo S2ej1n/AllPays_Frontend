@@ -6,81 +6,86 @@ import LineChart from "./com/LineChart";
 import DonutChart from "./com/DonutChart";
 import { DonutLegend } from "./com/DonutChart";
 import RankList from "./com/RankList";
-import type { PayType } from "../../types/payments";
+import { filterWeek, filterMonth, filterYear, filterPayType, countMonth, countWeek, countYear } from "../../utill";
+import { getThisWeek, getThisMonth, getThisYear } from "../../utill/getThisBla";
+import { useFilterStore } from "../../store/filterStore";
 
 export default function Dashboard() {
   const { data, isLoading, isError } = useGetPayment();
+  const { period } = useFilterStore(); // 현재 필터링 값?
 
   if (isLoading) return <div>로딩중</div>;
   if (isError) return <div>에러</div>;
 
-  // 데이터 계산 함수 만들고 월 자동으로 나오게 할것
-  const monthData = [
-    { x: "1월",  y: 8000 },
-    { x: "2월",  y: 12000 },
-    { x: "3월",  y: 2000 },
-    { x: "6월",  y: 31000 },
-    { x: "7월",  y: 28000 },
-    { x: "8월",  y: 52000 },
-    { x: "9월",  y: 0 },
-    { x: "10월", y: 2000 },
-    { x: "11월", y: 7000 },
-    { x: "12월", y: 6500 },
-  ];
+  const donutData = filterPayType(data??[]);
 
-  // 매핑되도록 할것
-  const donutData = [
-    {
-    id: "온라인",
-    value: 245600,
-    percent: 53.2,
-    payType: "ONLINE" as PayType,
-    },
-    {
-      id: "단말기",
-      value: 122000,
-      percent: 26.4,
-      payType: "DEVICE" as PayType,
-    },
-    {
-      id: "모바일",
-      value: 48000,
-      percent: 10.4,
-      payType: "MOBILE" as PayType,
-    },
-    {
-      id: "가상계좌",
-      value: 27000,
-      percent: 5.9,
-      payType: "VACT" as PayType,
-    },
-    {
-      id: "정기결제",
-      value: 16000,
-      percent: 3.5,
-      payType: "BILLING" as PayType,
-    },
-  ]
+  let totalAmount = 0;
+  let totalCount = 0;
+  let lineData: { x: string; y: number }[] = [];
+
+  if (period === "WEEK") {
+    const weekData = filterWeek(data ?? []);
+    const weekCounts = countWeek(data ?? []);
+    
+    const thisWeek = getThisWeek();
+
+     // 현재 주차가 없을 경우 값 추가
+    if (!weekData.find(m => m.x === thisWeek)) {
+      weekData.push({ x: thisWeek, y: 0 });
+    }
+
+    lineData = weekData.map(m => ({
+      x: m.x,
+      y: m.y,
+    }));
+
+    totalAmount = weekData.find(m => m.x === thisWeek)?.y ?? 0;
+    totalCount = weekCounts[thisWeek] ?? 0;
+  }
+
+  if (period === "MONTH") {
+    const monthData = filterMonth(data ?? []);
+    const monthCounts = countMonth(data ?? []);
+    lineData = monthData.map(m => ({
+      x: `${m.x}월`,
+      y: m.y,
+    }));
+    const thisMonth = getThisMonth();
+    totalAmount = monthData.find(m => m.x === thisMonth)?.y ?? 0;
+    totalCount = monthCounts[thisMonth - 1] ?? 0;
+  }
+
+  if (period === "YEAR") {
+    const yearData = filterYear(data ?? []);
+    const yearCounts = countYear(data ?? []);
+    lineData = yearData.map(m => ({
+      x: `${m.x}년`,
+      y: m.y,
+    }));
+    const thisYear = getThisYear();
+    totalAmount = yearData.find(m => m.x === thisYear)?.y ?? 0;
+    totalCount = yearCounts[thisYear] ?? 0;
+  }
 
   return(
     <div>
       <PeriodFilter/>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-        <TotalCard title="총 매출" value="₩ 124,253,535" />
-        <TotalCard title="거래 건수" value="99건" />
+        <TotalCard title="총 매출" 
+        value={`₩ ${totalAmount.toLocaleString()}`} />
+        <TotalCard title="거래 건수" 
+        value={`${totalCount}건`} />
       </div>
 
       <div className="bg-white p-5 mt-4 rounded-2xl shadow-sm border border-gray-300">
         <h2 className="font-bold mb-4">거래액 그래프</h2>
-        <LineChart data={monthData} />
+        <LineChart data={lineData} />
       </div>
 
       <section className="flex flex-col mt-4 bg-white p-6 rounded-2xl border border-gray-300 shadow-sm">
         <h2 className="font-bold mb-3 text-lg">결제 수단 현황</h2>
-        <div className="flex flex-col gap-[2rem]
-        [@media(min-width:886px)]:flex-row 
-        [@media(min-width:886px)]:items-center items-center">
+        <div className="flex flex-col gap-[2rem] [@media(min-width:886px)]:flex-row [@media(min-width:886px)]:items-center items-center">
           <div className="flex flex-col justify-center">
             <DonutChart data={donutData} />
             <DonutLegend data={donutData} />
@@ -88,14 +93,6 @@ export default function Dashboard() {
           <RankList data={donutData} />
         </div>
       </section>
-
-      {/* <ul>
-        {data?.map((payment) => (
-          <li key={payment.paymentCode}>
-            {payment.amount}원
-          </li>
-        ))}
-      </ul> */}
     </div>
   )
 }
