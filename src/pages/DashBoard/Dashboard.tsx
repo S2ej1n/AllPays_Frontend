@@ -7,7 +7,7 @@ import DonutChart from "./com/DonutChart";
 import { DonutLegend } from "./com/DonutChart";
 import RankList from "./com/RankList";
 import { filterWeek, filterMonth, filterYear, filterPayType } from "../../utill";
-import { getThisMonth } from "../../utill/getThisBla";
+import { getThisMonth, getThisYear } from "../../utill/getThisBla";
 import { useFilterStore } from "../../store/filterStore";
 
 export default function Dashboard() {
@@ -29,15 +29,21 @@ export default function Dashboard() {
   if (period === "MONTH") {
     const monthData = filterMonth(data ?? []);
     lineData = monthData.map(m => ({
-    x: `${m.x}월`,
-    y: m.y,
-  }));
+      x: `${m.x}월`,
+      y: m.y,
+    }));
     const thisMonth = getThisMonth();
-    totalAmount = monthData.find(m => m.x === thisMonth)?.y ?? 0;;
+    totalAmount = monthData.find(m => m.x === thisMonth)?.y ?? 0;
   }
 
   if (period === "YEAR") {
-  
+    const yearData = filterYear(data ?? []);
+    lineData = yearData.map(m => ({
+      x: `${m.x}년`,
+      y: m.y,
+    }));
+    const thisYear = getThisYear();
+    totalAmount = yearData.find(m => m.x === thisYear)?.y ?? 0;
   }
 
   return(
