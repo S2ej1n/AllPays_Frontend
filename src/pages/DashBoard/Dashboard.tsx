@@ -1,5 +1,6 @@
 // 메인 대시보드
 import { useGetPayment } from "../../apis/payment"
+import PeriodFilter from "./PeriodFilter";
 
 export default function Dashboard() {
   const { data, isLoading, isError } = useGetPayment();
@@ -9,7 +10,8 @@ export default function Dashboard() {
 
   return(
     <div>
-      <h1>Dashboard</h1>
+      <PeriodFilter/>
+      
       {/* <ul>
         {data?.map((payment) => (
           <li key={payment.paymentCode}>
