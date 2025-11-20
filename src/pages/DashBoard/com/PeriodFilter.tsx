@@ -1,0 +1,37 @@
+// 기간 필터링 컴포넌트
+export default function PeriodFilter() {
+  return (
+    <section className="flex flex-col gap-[1rem] [@media(min-width:960px)]:flex-row [@media(min-width:960px)]:gap-[10.5rem] p-4 px-5 bg-white border border-gray-300 shadow-sm rounded-2xl">
+        <div>
+            <p className="font-bold mb-2">기간 선택</p>
+            <div className="flex flex-row gap-2">
+            <button className="btn btn-sm p-4 px-3 border border-gray-300 shadow-sm text-sm rounded-md text-gray-500">
+                오늘
+            </button>
+            <button className="btn btn-sm p-4 px-3 border border-gray-300 shadow-sm text-sm rounded-md text-gray-500">
+                최근 7일
+            </button>
+            <button className="btn btn-sm p-4 px-3 border border-gray-300 shadow-sm text-sm rounded-md text-gray-500">
+                월별
+            </button>
+            <button className="btn btn-sm p-4 px-3 border border-gray-300 shadow-sm text-sm rounded-md text-gray-500">
+                연도별
+            </button>
+            </div>
+        </div>
+
+        <div>
+            <p className="font-bold mb-2">통화 선택</p>
+            <select
+            defaultValue="통화 선택"
+            className="select px-3 border border-gray-300 shadow-sm text-sm rounded-xl w-52"
+            >
+            <option>한국 (KRW)</option>
+            <option>미국 (USD)</option>
+            <option>일본 (JPY)</option>
+            </select>
+        </div>
+    </section>
+
+  )
+}

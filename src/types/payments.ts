@@ -13,3 +13,19 @@ export interface Payment {
     status: StatusType;  
     paymentAt: string;
 }
+
+// 한글 매핑
+export const PayTypeMapping: Record<PayType, string> = {
+    ONLINE: "온라인",
+    DEVICE: "단말기",
+    MOBILE: "모바일",
+    VACT: "가상계좌",
+    BILLING: "정기결제",
+};
+
+export const StatusTypeMapping: Record<StatusType, string> = {
+    PENDING: "대기",
+    SUCCESS: "완료",
+    FAILED: "실패",
+    CANCELLED: "환불",
+};
