@@ -6,7 +6,7 @@ import LineChart from "./com/LineChart";
 import DonutChart from "./com/DonutChart";
 import { DonutLegend } from "./com/DonutChart";
 import RankList from "./com/RankList";
-import { filterWeek, filterMonth, filterYear, filterPayType, countMonth } from "../../utill";
+import { filterWeek, filterMonth, filterYear, filterPayType, countMonth, countWeek } from "../../utill";
 import { getThisWeek, getThisMonth, getThisYear } from "../../utill/getThisBla";
 import { useFilterStore } from "../../store/filterStore";
 
@@ -25,6 +25,7 @@ export default function Dashboard() {
 
   if (period === "WEEK") {
     const weekData = filterWeek(data ?? []);
+    const weekCounts = countWeek(data ?? []);
     
     const thisWeek = getThisWeek();
 
@@ -39,6 +40,7 @@ export default function Dashboard() {
     }));
 
     totalAmount = weekData.find(m => m.x === thisWeek)?.y ?? 0;
+    totalCount = weekCounts[thisWeek] ?? 0;
   }
 
   if (period === "MONTH") {

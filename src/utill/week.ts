@@ -37,3 +37,17 @@ export function filterWeek(data: Payment[]) {
   }));
 }
 
+// 거래 건수
+export function countWeek(data: Payment[]) {
+  const count: Record<string, number> = {};
+
+  data.forEach(p => {
+    const date = new Date(p.paymentAt);
+    const weekKey = getWeekString(date); // "11월 2주차"
+    
+    if (!count[weekKey]) count[weekKey] = 0;
+    count[weekKey] += 1;
+  });
+
+  return count;
+}
