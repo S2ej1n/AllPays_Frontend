@@ -6,25 +6,39 @@ import LineChart from "./com/LineChart";
 import DonutChart from "./com/DonutChart";
 import { DonutLegend } from "./com/DonutChart";
 import RankList from "./com/RankList";
-import { filterMonth, filterPayType } from "../../utill";
+import { filterWeek, filterMonth, filterYear, filterPayType } from "../../utill";
 import { getThisMonth } from "../../utill/getThisBla";
+import { useFilterStore } from "../../store/filterStore";
 
 export default function Dashboard() {
   const { data, isLoading, isError } = useGetPayment();
+  const { period } = useFilterStore(); // 현재 필터링 값?
 
   if (isLoading) return <div>로딩중</div>;
   if (isError) return <div>에러</div>;
 
-  // [달 차트] : 객체 키를 x, y 라고 통일해야 오류 안남
-  const monthData = filterMonth(data ?? []);
-  const lineData = monthData.map(m => ({
+  const donutData = filterPayType(data??[]);
+
+  let totalAmount = 0;
+  let lineData: { x: string; y: number }[] = [];
+
+  if (period === "WEEK") {
+
+  }
+
+  if (period === "MONTH") {
+    const monthData = filterMonth(data ?? []);
+    lineData = monthData.map(m => ({
     x: `${m.x}월`,
     y: m.y,
   }));
-  const thisMonth = getThisMonth();
-  const thisMonthTotal = monthData.find(m => m.x === thisMonth)?.y ?? 0;
+    const thisMonth = getThisMonth();
+    totalAmount = monthData.find(m => m.x === thisMonth)?.y ?? 0;;
+  }
 
-  const donutData = filterPayType(data??[]);
+  if (period === "YEAR") {
+  
+  }
 
   return(
     <div>
@@ -32,7 +46,7 @@ export default function Dashboard() {
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
         <TotalCard title="총 매출" 
-        value={`₩ ${thisMonthTotal.toLocaleString()}`} />
+        value={`₩ ${totalAmount.toLocaleString()}`} />
         <TotalCard title="거래 건수" value="99건" />
       </div>
 
