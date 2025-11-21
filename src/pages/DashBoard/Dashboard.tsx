@@ -8,90 +8,18 @@ import { DonutLegend } from "./com/DonutPayTypeChart";
 import StatusChart from "./com/StatusChart";
 import { StatusLegend } from "./com/StatusChart";
 import RankList from "./com/RankList";
-import type { PayType, StatusType } from "../../types/payments";
-import { filterWeek, filterMonth, filterYear, filterPayType, countMonth, countWeek, countYear,
-  filterMonthData, filterWeekData, filterYearData, counttotalWeek, counttotalMonth, counttotalYear,
-  filterStatusType, filtertotalWeekData, filtertotalMonthData, filtertotalearData
- } from "../../utill";
-import { getThisWeek, getThisMonth, getThisYear } from "../../utill/getThisBla";
+import { periodFilter } from "../../utill/periodFilter";
 import { useFilterStore } from "../../store/filterStore";
 
 export default function Dashboard() {
   const { data, isLoading, isError } = useGetPayment();
   const { period } = useFilterStore(); // 현재 필터링 값?
 
+  const { lineData, totalAmount, totalCount, tCount, donutData, statusData, successRate} 
+  = periodFilter(period, data ?? []);
+
   if (isLoading) return <div>로딩중</div>;
   if (isError) return <div>에러</div>;
-
-  let totalAmount = 0;
-  let totalCount = 0;
-  let tCount = 0;
-  let lineData: { x: string; y: number }[] = [];
-  let donutData:{ id:PayType; value: number; percent: number; }[] = [];
-
-  let statusData:{ id:StatusType; value: number; percent: number; }[] = [];
-  // const statusData = filterStatusType(data ?? []);
-
-  if (period === "WEEK") {
-    const weekData = filterWeek(data ?? []);
-    const weekCounts = countWeek(data ?? []);
-    const weektotalCounts = counttotalWeek(data ?? []);
-    const weekPayments =filterWeekData(data ?? []);
-    const weektotalPayments =filtertotalWeekData(data ?? []);
-    const thisWeek = getThisWeek();
-
-     // 현재 주차가 없을 경우 값 추가
-    if (!weekData.find(m => m.x === thisWeek)) {
-      weekData.push({ x: thisWeek, y: 0 });
-    }
-
-    lineData = weekData.map(m => ({
-      x: m.x,
-      y: m.y,
-    }));
-
-    totalAmount = weekData.find(m => m.x === thisWeek)?.y ?? 0;
-    totalCount = weekCounts[thisWeek] ?? 0;
-    tCount = weektotalCounts[thisWeek] ?? 0;
-    donutData = filterPayType(weekPayments);
-    statusData = filterStatusType(weektotalPayments);
-  }
-
-  if (period === "MONTH") {
-    const monthData = filterMonth(data ?? []);
-    const monthCounts = countMonth(data ?? []);
-    const monthtotalCounts = counttotalMonth(data ?? []);
-    const monthPayments = filterMonthData(data?? []);
-    const monthtotalPayments =filtertotalMonthData(data ?? []);
-    lineData = monthData.map(m => ({
-      x: `${m.x}월`,
-      y: m.y,
-    }));
-    const thisMonth = getThisMonth();
-    totalAmount = monthData.find(m => m.x === thisMonth)?.y ?? 0;
-    totalCount = monthCounts[thisMonth - 1] ?? 0;
-    tCount =  monthtotalCounts[thisMonth - 1] ?? 0;
-    donutData = filterPayType(monthPayments);
-    statusData = filterStatusType(monthtotalPayments);
-  }
-
-  if (period === "YEAR") {
-    const yearData = filterYear(data ?? []);
-    const yearCounts = countYear(data ?? []);
-    const yeartotalCounts = counttotalYear(data ?? []);
-    const yearPayments = filterYearData(data ?? []);
-    const yeartotalPayments = filtertotalearData(data ?? []);
-    lineData = yearData.map(m => ({
-      x: `${m.x}년`,
-      y: m.y,
-    }));
-    const thisYear = getThisYear();
-    totalAmount = yearData.find(m => m.x === thisYear)?.y ?? 0;
-    totalCount = yearCounts[thisYear] ?? 0;
-    tCount = yeartotalCounts[thisYear] ?? 0;
-    donutData = filterPayType(yearPayments);
-    statusData = filterStatusType(yeartotalPayments);
-  }
 
   return(
     <div>
@@ -132,7 +60,9 @@ export default function Dashboard() {
           <div className="flex-1">
             <div className="border bg-white p-6 rounded-2xl border-gray-300 shadow-sm">
               <p className="text-lg font-semibold mb-2">결제 성공률</p>
-              <p className="text-4xl font-bold mb-4">99%</p>
+              <p className="text-4xl font-bold mb-4">
+                {`${successRate}%`}
+              </p>
 
               <div className="space-y-1 text-sm">
                 <p>완료 {}건</p>
