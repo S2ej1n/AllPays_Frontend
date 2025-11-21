@@ -64,12 +64,12 @@ export default function Dashboard() {
                 {`${successRate}%`}
               </p>
 
-              <div className="space-y-1 text-sm">
+              {/* <div className="space-y-1 text-sm">
                 <p>완료 {}건</p>
                 <p>대기 {}건</p>
                 <p>실패 {}건</p>
                 <p>환불 {}건</p>
-              </div>
+              </div> */}
             </div>
           </div>
 
