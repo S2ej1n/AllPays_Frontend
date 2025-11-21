@@ -57,7 +57,7 @@ src
 - `utill/periodFilter.ts` : 필터링 버튼 클릭시 기간별로 `화면 전체의 값이 바뀌도록` 값을 계산/변경해주는 함수입니다.
 
 ## 🎨 Figma
-#### 요구 사항 분석 | 간단한 화면 설계
+#### 요구 사항 분석 | 와이어프레임 설계
 https://www.figma.com/design/MV7Wovk5uY9BgnH1Zl1IZv/%EC%98%AC%ED%8E%98%EC%9D%B4%EC%A6%88-%EA%B3%BC%EC%A0%9C?node-id=0-1&t=BEX27dkrOqa9fxGc-1
 
 ### 필터링 요소
