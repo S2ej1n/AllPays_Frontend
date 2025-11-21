@@ -12,3 +12,10 @@ export interface MerchantType{
     registeredAt: string;   
     updatedAt: string;      
 }
+
+export interface MerchantList{
+    mchtCode: string; 
+    mchtName: string;
+    status: MerchantStatus; 
+    bizType: string;       
+}
