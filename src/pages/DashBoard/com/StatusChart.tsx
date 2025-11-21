@@ -11,7 +11,7 @@ export interface StatusChartProps {
     }>;
 }
 
-export const chartColors = ["#FFE48A", "#B9F0CD", "#FFB7B7", "#EEDBFF"];
+export const chartColors = ["#ffdb63", "#52dd65", "#f98d8d", "#cfa4f5"];
 
 export default function StatusChart({ data } : StatusChartProps) {
   return (

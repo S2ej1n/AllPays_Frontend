@@ -50,12 +50,22 @@ export function counttotalMonth(data: Payment[]) {
   return count;
 }
 
-// 해당 월의 값만 가져오기 [도넛 차트를 위한 필터링 함수 제작]
+// 해당 월의 성공 값만 가져오기 [도넛 차트를 위한 필터링 함수 제작]
 export function filterMonthData(data: Payment[]) {
   const thisMonth = new Date().getMonth() + 1;
 
   return data.filter(p => {
     if (p.status !== "SUCCESS") return false;
+    const date = new Date(p.paymentAt);
+    return date.getMonth() + 1 === thisMonth;
+  });
+}
+
+// 해당 월의 모든 값만 가져오기 [도넛 차트를 위한 필터링 함수 제작]
+export function filtertotalMonthData(data: Payment[]) {
+  const thisMonth = new Date().getMonth() + 1;
+
+  return data.filter(p => {
     const date = new Date(p.paymentAt);
     return date.getMonth() + 1 === thisMonth;
   });

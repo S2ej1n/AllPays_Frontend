@@ -11,7 +11,7 @@ import RankList from "./com/RankList";
 import type { PayType, StatusType } from "../../types/payments";
 import { filterWeek, filterMonth, filterYear, filterPayType, countMonth, countWeek, countYear,
   filterMonthData, filterWeekData, filterYearData, counttotalWeek, counttotalMonth, counttotalYear,
-  filterStatusType
+  filterStatusType, filtertotalWeekData, filtertotalMonthData, filtertotalearData
  } from "../../utill";
 import { getThisWeek, getThisMonth, getThisYear } from "../../utill/getThisBla";
 import { useFilterStore } from "../../store/filterStore";
@@ -29,15 +29,15 @@ export default function Dashboard() {
   let lineData: { x: string; y: number }[] = [];
   let donutData:{ id:PayType; value: number; percent: number; }[] = [];
 
-  // let statusData:{ id:StatusType; value: number; percent: number; }[] = [];
-  const statusData = filterStatusType(data ?? []);
-
+  let statusData:{ id:StatusType; value: number; percent: number; }[] = [];
+  // const statusData = filterStatusType(data ?? []);
 
   if (period === "WEEK") {
     const weekData = filterWeek(data ?? []);
     const weekCounts = countWeek(data ?? []);
     const weektotalCounts = counttotalWeek(data ?? []);
     const weekPayments =filterWeekData(data ?? []);
+    const weektotalPayments =filtertotalWeekData(data ?? []);
     const thisWeek = getThisWeek();
 
      // 현재 주차가 없을 경우 값 추가
@@ -54,6 +54,7 @@ export default function Dashboard() {
     totalCount = weekCounts[thisWeek] ?? 0;
     tCount = weektotalCounts[thisWeek] ?? 0;
     donutData = filterPayType(weekPayments);
+    statusData = filterStatusType(weektotalPayments);
   }
 
   if (period === "MONTH") {
@@ -61,6 +62,7 @@ export default function Dashboard() {
     const monthCounts = countMonth(data ?? []);
     const monthtotalCounts = counttotalMonth(data ?? []);
     const monthPayments = filterMonthData(data?? []);
+    const monthtotalPayments =filtertotalMonthData(data ?? []);
     lineData = monthData.map(m => ({
       x: `${m.x}월`,
       y: m.y,
@@ -70,6 +72,7 @@ export default function Dashboard() {
     totalCount = monthCounts[thisMonth - 1] ?? 0;
     tCount =  monthtotalCounts[thisMonth - 1] ?? 0;
     donutData = filterPayType(monthPayments);
+    statusData = filterStatusType(monthtotalPayments);
   }
 
   if (period === "YEAR") {
@@ -77,6 +80,7 @@ export default function Dashboard() {
     const yearCounts = countYear(data ?? []);
     const yeartotalCounts = counttotalYear(data ?? []);
     const yearPayments = filterYearData(data ?? []);
+    const yeartotalPayments = filtertotalearData(data ?? []);
     lineData = yearData.map(m => ({
       x: `${m.x}년`,
       y: m.y,
@@ -86,6 +90,7 @@ export default function Dashboard() {
     totalCount = yearCounts[thisYear] ?? 0;
     tCount = yeartotalCounts[thisYear] ?? 0;
     donutData = filterPayType(yearPayments);
+    statusData = filterStatusType(yeartotalPayments);
   }
 
   return(

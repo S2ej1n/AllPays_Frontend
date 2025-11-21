@@ -11,7 +11,7 @@ export interface DonutChartProps {
     }>;
 }
 
-export const chartColors = ["#5f8df6", "#9cf3a8", "#c9abf6", "#FFB3DA", "#D4D4D4"];
+export const chartColors = ["#5f8df6", "#5cbd69", "#8157c0", "#cf70a1", "#e7e310"];
 
 export default function DonutChart({ data } : DonutChartProps) {
   return (

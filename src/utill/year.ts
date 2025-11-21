@@ -60,3 +60,12 @@ export function filterYearData(data: Payment[]) {
     return date.getFullYear() === thisYear;
   });
 }
+
+export function filtertotalearData(data: Payment[]) {
+  const thisYear = new Date().getFullYear();
+
+  return data.filter(p => {
+    const date = new Date(p.paymentAt);
+    return date.getFullYear() === thisYear;
+  });
+}
