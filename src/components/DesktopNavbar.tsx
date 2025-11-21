@@ -14,10 +14,13 @@ export default function DesktopNavbar() {
                     }`}
                     onClick={() => navigate("/")}>대시보드</button>
             <button className={`bg-white p-2 text-left ${
+                    pathname === "/paylist" ? "font-bold text-blue-600" : "font-medium"
+                    }`}
+                    onClick={() => navigate("/paylist")}>거래 내역 리스트</button>
+            <button className={`bg-white p-2 text-left ${
                     pathname === "/merchats" ? "font-bold text-blue-600" : "font-medium"
                     }`}
                     onClick={() => navigate("/merchats")}>가맹점조회</button>
-            <button className="bg-white p-2 text-left">메뉴</button>
         </aside>
     );
 }
