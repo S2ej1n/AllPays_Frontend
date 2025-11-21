@@ -24,6 +24,7 @@ export function filterWeek(data: Payment[]) {
   const map: Record<string, number> = {};
 
   data.forEach(p => {
+    if (p.status !== "SUCCESS") return;
     const date = new Date(p.paymentAt);
     const weekKey = getWeekString(date);
 
@@ -37,8 +38,24 @@ export function filterWeek(data: Payment[]) {
   }));
 }
 
-// 거래 건수
+// 거래 성공 건수
 export function countWeek(data: Payment[]) {
+  const count: Record<string, number> = {};
+
+  data.forEach(p => {
+    if (p.status !== "SUCCESS") return;
+    const date = new Date(p.paymentAt);
+    const weekKey = getWeekString(date); // "11월 2주차"
+    
+    if (!count[weekKey]) count[weekKey] = 0;
+    count[weekKey] += 1;
+  });
+
+  return count;
+}
+
+// 거래 건수
+export function counttotalWeek(data: Payment[]) {
   const count: Record<string, number> = {};
 
   data.forEach(p => {
@@ -52,8 +69,20 @@ export function countWeek(data: Payment[]) {
   return count;
 }
 
-// 해당 주 의 값만 가져오기 [도넛 차트를 위한 필터링 함수 제작]
+// 해당 주 의 성공 값만 가져오기 [도넛 차트를 위한 필터링 함수 제작]
 export function filterWeekData(data: Payment[]) {
+  const today = new Date();
+ const thisWeekKey = getWeekString(today); // 오늘은 // "11월 2주차"
+
+  return data.filter(p => {
+    if (p.status !== "SUCCESS") return false;
+    const weekKey = getWeekString(new Date(p.paymentAt)); // "11월 2주차"
+    return weekKey === thisWeekKey;
+  });
+}
+
+// 해당 주 의 모든 값만 가져오기
+export function filtertotalWeekData(data: Payment[]) {
   const today = new Date();
  const thisWeekKey = getWeekString(today); // 오늘은 // "11월 2주차"
 

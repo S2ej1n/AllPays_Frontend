@@ -12,7 +12,7 @@ export default function PeriodFilter() {
     }
 
   return (
-    <section className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4 p-4 px-5 bg-white border border-gray-300 shadow-sm rounded-2xl">
+    <section className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 px-5 bg-white border border-gray-300 shadow-sm rounded-2xl">
         <div>
             <p className="font-bold mb-2">기간 선택</p>
             <div className="flex flex-row gap-2">

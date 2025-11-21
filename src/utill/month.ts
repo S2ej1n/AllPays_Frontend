@@ -12,6 +12,8 @@ export function filterMonth(data: Payment[]){
 
     // for문 돌려
     data.forEach((i) => {
+      // 성공한 거래만
+        if (i.status !== "SUCCESS") return;
         // Date 객체로 만들기 (string으로 하면 일일이 분리하지만, Date객체로 만들면 분리하기 easy합니다)
         const date = new Date(i.paymentAt);
         const month = date.getMonth();
@@ -21,8 +23,22 @@ export function filterMonth(data: Payment[]){
     return result;
 }
 
-// 월별 거래 건수 계산하기
+// 월별 거래 성공 건수 계산하기
 export function countMonth(data: Payment[]) {
+  const count = Array.from({ length: 12 }, () => 0);
+
+  data.forEach(i => {
+    if (i.status !== "SUCCESS") return;
+    const date = new Date(i.paymentAt);
+    const month = date.getMonth();
+    count[month] += 1;
+  });
+
+  return count;
+}
+
+// 월별 거래 건수 계산하기
+export function counttotalMonth(data: Payment[]) {
   const count = Array.from({ length: 12 }, () => 0);
 
   data.forEach(i => {
@@ -34,9 +50,19 @@ export function countMonth(data: Payment[]) {
   return count;
 }
 
-
-// 해당 월의 값만 가져오기 [도넛 차트를 위한 필터링 함수 제작]
+// 해당 월의 성공 값만 가져오기 [도넛 차트를 위한 필터링 함수 제작]
 export function filterMonthData(data: Payment[]) {
+  const thisMonth = new Date().getMonth() + 1;
+
+  return data.filter(p => {
+    if (p.status !== "SUCCESS") return false;
+    const date = new Date(p.paymentAt);
+    return date.getMonth() + 1 === thisMonth;
+  });
+}
+
+// 해당 월의 모든 값만 가져오기 [도넛 차트를 위한 필터링 함수 제작]
+export function filtertotalMonthData(data: Payment[]) {
   const thisMonth = new Date().getMonth() + 1;
 
   return data.filter(p => {

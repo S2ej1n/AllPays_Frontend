@@ -1,6 +1,6 @@
 // 결제 수단 횟수 랭크 - 도넛차트에 귀속
-import { chartColors } from "./DonutChart";
-import type { DonutChartProps } from "./DonutChart";
+import { chartColors } from "./DonutPayTypeChart";
+import type { DonutChartProps } from "./DonutPayTypeChart";
 import type { PayType } from "../../../types/payments";
 import { PayTypeMapping } from "../../../types/payments";
 
