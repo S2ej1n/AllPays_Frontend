@@ -76,7 +76,11 @@ https://www.figma.com/design/MV7Wovk5uY9BgnH1Zl1IZv/%EC%98%AC%ED%8E%98%EC%9D%B4%
 | ------------ | -------------------------- |
 |     <img width="1347" height="1110" alt="스크린샷 2025-11-21 오전 9 09 06" src="https://github.com/user-attachments/assets/e9aef196-c378-4815-a090-cb9323465942" /> |   <img width="829" height="1110" alt="스크린샷 2025-11-21 오전 9 09 14" src="https://github.com/user-attachments/assets/befdd510-9a19-4fd6-92d0-a1e97b89648d" />|
 
-
+- **거래내역 조회** : 가맹점이름 매핑
+  
+| 화면          | 설명                   |
+| ------------ | -------------------------- |
+| <img width="500" height="400" alt="스크린샷 2025-11-21 오전 11 39 34" src="https://github.com/user-attachments/assets/e7d041fa-2f60-4119-adc7-fbede4683428" /> | mchtCode를 이용해 mchtName를 매핑하여 출력했습니다 |
 
 ## 📝 Commit Convention
 | 타입           | 설명                         |
