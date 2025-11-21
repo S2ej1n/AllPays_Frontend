@@ -19,7 +19,7 @@ React 18 환경과의 호환성을 위해 React Router DOM은 v6, Zustand는 v4 
 npm install
 npm run dev
 ```
-#### 환경변수 .env
+#### ✅ 환경변수 .env
 ```
 VITE_API_BASE_URL = https://recruit.paysbypays.com/api/v1
 ```
