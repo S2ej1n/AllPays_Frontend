@@ -16,10 +16,13 @@ export default function MobileNavbar() {
                     }`}
                     onClick={() => navigate("/")}>대시보드</button>
             <button className={`bg-white pr-4 py-2 ${
+                    pathname === "/paylist" ? "font-bold text-blue-600" : "font-medium"
+                    }`}
+                    onClick={() => navigate("/paylist")}>거래 내역 리스트</button>
+            <button className={`bg-white pr-4 py-2 ${
                     pathname === "/merchats" ? "font-bold text-blue-600" : "font-medium"
                     }`}
                     onClick={() => navigate("/merchats")}>가맹점조회</button>
-            <button className="bg-white px-4 py-2">메뉴</button>
         </nav>
     </div>
     );
