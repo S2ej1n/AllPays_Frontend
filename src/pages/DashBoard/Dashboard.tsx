@@ -30,8 +30,10 @@ export default function Dashboard() {
   let donutData:{ id:PayType; value: number; percent: number; }[] = [];
 
   let statusData:{ id:StatusType; value: number; percent: number; }[] = [];
-  // const statusData = filterStatusType(data ?? []);
 
+  let successRate = 0;
+
+  // 필터링 함수로 빼서 정리해야할 것 같다.
   if (period === "WEEK") {
     const weekData = filterWeek(data ?? []);
     const weekCounts = countWeek(data ?? []);
@@ -55,6 +57,8 @@ export default function Dashboard() {
     tCount = weektotalCounts[thisWeek] ?? 0;
     donutData = filterPayType(weekPayments);
     statusData = filterStatusType(weektotalPayments);
+
+    successRate = tCount === 0 ? 0 : Number(((totalCount / tCount) * 100).toFixed(1));
   }
 
   if (period === "MONTH") {
@@ -73,6 +77,8 @@ export default function Dashboard() {
     tCount =  monthtotalCounts[thisMonth - 1] ?? 0;
     donutData = filterPayType(monthPayments);
     statusData = filterStatusType(monthtotalPayments);
+
+    successRate = tCount === 0 ? 0 : Number(((totalCount / tCount) * 100).toFixed(1));
   }
 
   if (period === "YEAR") {
@@ -91,6 +97,8 @@ export default function Dashboard() {
     tCount = yeartotalCounts[thisYear] ?? 0;
     donutData = filterPayType(yearPayments);
     statusData = filterStatusType(yeartotalPayments);
+
+    successRate = tCount === 0 ? 0 : Number(((totalCount / tCount) * 100).toFixed(1));
   }
 
   return(
@@ -132,7 +140,9 @@ export default function Dashboard() {
           <div className="flex-1">
             <div className="border bg-white p-6 rounded-2xl border-gray-300 shadow-sm">
               <p className="text-lg font-semibold mb-2">결제 성공률</p>
-              <p className="text-4xl font-bold mb-4">99%</p>
+              <p className="text-4xl font-bold mb-4">
+                {`${successRate}%`}
+              </p>
 
               <div className="space-y-1 text-sm">
                 <p>완료 {}건</p>
