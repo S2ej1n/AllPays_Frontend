@@ -44,6 +44,11 @@ src
 ## 🎨 Figma
 #### 화면 설계 및 요구사항 정리
 https://www.figma.com/design/MV7Wovk5uY9BgnH1Zl1IZv/%EC%98%AC%ED%8E%98%EC%9D%B4%EC%A6%88-%EA%B3%BC%EC%A0%9C?node-id=0-1&t=BEX27dkrOqa9fxGc-1
+1. 모바일에서도 편리하게 확인 가능하도록 **반응형 설계**
+
+| Desktop        | Mobile                       |
+| ------------ | -------------------------- |
+|     <img width="1347" height="1110" alt="스크린샷 2025-11-21 오전 9 09 06" src="https://github.com/user-attachments/assets/e9aef196-c378-4815-a090-cb9323465942" /> |   <img width="829" height="1110" alt="스크린샷 2025-11-21 오전 9 09 14" src="https://github.com/user-attachments/assets/befdd510-9a19-4fd6-92d0-a1e97b89648d" />|
 
 ## 📝 Commit Convention
 | 타입           | 설명                         |
