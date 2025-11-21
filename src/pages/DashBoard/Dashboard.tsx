@@ -121,15 +121,31 @@ export default function Dashboard() {
       </section>
 
       {/* 상태별로 그래프 */}
-      <section className="flex flex-col mt-4 bg-white p-6 rounded-2xl border border-gray-300 shadow-sm">
-        <h2 className="font-bold mb-3 text-lg">결제 상태 분포</h2>
-        <div className="flex flex-col gap-[2rem] [@media(min-width:886px)]:flex-row [@media(min-width:886px)]:items-center items-center">
-          <div className="flex flex-col justify-center">
+      <section className="mt-4">
+        <div className="flex flex-col md:flex-row gap-4">
+          <div className="flex-1 flex-col justify-center items-center bg-white p-6 rounded-2xl border border-gray-300 shadow-sm">
+            <h2 className="font-bold mb-3 text-lg">결제 상태 분포</h2>
             <StatusChart data={statusData} />
             <StatusLegend data={statusData} />
           </div>
+
+          <div className="flex-1">
+            <div className="border bg-white p-6 rounded-2xl border-gray-300 shadow-sm">
+              <p className="text-lg font-semibold mb-2">결제 성공률</p>
+              <p className="text-4xl font-bold mb-4">99%</p>
+
+              <div className="space-y-1 text-sm">
+                <p>완료 {}건</p>
+                <p>대기 {}건</p>
+                <p>실패 {}건</p>
+                <p>환불 {}건</p>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
+
     </div>
   )
 }

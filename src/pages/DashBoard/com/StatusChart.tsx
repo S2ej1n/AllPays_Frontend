@@ -49,7 +49,7 @@ export default function StatusChart({ data } : StatusChartProps) {
 
 export function StatusLegend({ data }: StatusChartProps) {
   return (
-    <div className="flex flex-wrap justify-center gap-3 px-6">
+    <div className="flex flex-wrap justify-center gap-3 mt-4 px-6">
       {data.map((item, index) => (
         <div key={item.id} className="flex items-center gap-2">
           <span
