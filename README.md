@@ -1,4 +1,4 @@
-# Assignment
+# AllPays Assignment
 이 과제는 안정성과 라이브러리 호환성을 우선하여 React 18.3.1을 기반으로 개발했습니다.  
 React 18 환경과의 호환성을 위해 React Router DOM은 v6, Zustand는 v4 버전을 선택했습니다.  
 또한 그래프 구현은 커스텀이 가장 자유로운 Nivo 라이브러리를 선택했고,  
@@ -28,19 +28,33 @@ VITE_API_BASE_URL = https://recruit.paysbypays.com/api/v1
 src
 ├── apis                     # API 호출 관련 함수 (axios, hooks 등)
 ├── assets                   # 이미지, 아이콘 등 정적 리소스
-├── components               # 공용 UI 컴포넌트 (헤더 등)
+├── components               # 공용 UI 컴포넌트 (반응형 헤더 제작)
 ├── mockdata                 # 임시 데이터(Mock)
 ├── pages
 │   ├── DashBoard            # 대시보드 페이지
 │   │   ├── com              # 대시보드 관련 세부 컴포넌트
 │   │   └── Dashboard.tsx
 │   └── Merchants.tsx        # 가맹점 관리 페이지
-├── router                   # 라우터 설정
-├── store                    # Zustand
-│   └── filterStore.ts 
+├── router                   # index.tsx로 라우터를 한번에 관리합니다
+├── store                    
+│   └── filterStore.ts       # Zustand로 필터링 상태를 관리합니다.
 ├── types                    # 타입 정의
-└── utill                    # 함수 모음
+└── utill                    # 그래프에 들어갈 값을 계산하는 함수들의 모음
 ```
+
+- `apis/axios.ts` : `서버 공통 응답 타입`을 정의하고 `axiosInstance`를 생성하여 서버와의 연결시 공통으로 사용할 수 있게 하였습니다.
+- `apis/hooks.ts`: `Tanstack Query`를 이용해 `GET`호출 훅을 만들었습니다. endpoint만 바꾸어 재사용 가능할 수 있게했습니다.
+- `apis/payment.ts`: 훅을 사용해 `/payments/list`로 GET 요청을 하는 함수입니다.
+
+- `pages/DashBoard/com` : Dashboard 페이지를 구성하는 컴포넌트들입니다. 총 매출&거래건수 카드, 그래프 등이 있습니다.
+  
+- `utill/getThisBla.ts` : 현재 주차, 현재 달, 현재의 년도를 계산하는 함수들의 모음입니다.
+- `utill/index.ts`: 필요한 함수를 `한번에 호출`할 수 있도록 만들었습니다.
+- `utill/month.ts, week.ts, year.ts`: 월별, 주별, 년도별로 그래프에 필요한 데이터를 필터링 하는 함수들입니다.
+- `utill/paytypefilter.ts` : `결제 수단 그래프`에 들어갈 값을 도출하기 위한 함수입니다
+- `utill/statusfilter.ts` : `결제 상태 그래프`에 들어갈 값을 도출하기 위한 함수입니다
+  
+- `utill/periodFilter.ts` : 필터링 버튼 클릭시 기간별로 `화면 전체의 값이 바뀌도록` 값을 계산/변경해주는 함수입니다.
 
 ## 🎨 Figma
 요구 사항을 분석해보고 간단한 화면 설계를 했습니다.
