@@ -24,8 +24,3 @@ export function filterPayType(data: Payment[]) {
 
     return result
 }
-    // {
-    // id: "ONLINE" as PayType,
-    // value: 245600,
-    // percent: 53.2,
-    // },
