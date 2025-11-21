@@ -10,7 +10,7 @@ export default function RankList({data} : DonutChartProps ) {
       {data.map((item, index) => (
         // 전체를 묶는 박스
         <article key={item.id} 
-            className="flex flex-col justify-between mb-4
+            className="flex flex-col mb-4
             rank499:flex-row rank886:flex-col rank1205:flex-row">
 
           {/* 번호 + 이름 + 금액 */}
