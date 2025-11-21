@@ -1,11 +1,30 @@
+import { useMemo } from "react";
 import { useGetPayment } from "../apis/payment";
+import { useGetMerchantList } from "../apis/merchant";
+import type { MerchantList } from '../types/merchant.ts';
 import { PayTypeMapping, StatusTypeMapping, type Payment } from "../types/payments";
+
+export function makeMerchantMap(list: MerchantList[]) {
+  const map: Record<string, string> = {};
+
+  list.forEach(m => {
+    map[m.mchtCode] = m.mchtName;
+  });
+
+  return map;
+}
 
 export default function PayList() {
   const { data, isLoading, isError } = useGetPayment();
+  const { data: merchants } = useGetMerchantList();
 
   if (isLoading) return <div>로딩중...</div>;
   if (isError) return <div>에러 발생!</div>;
+
+  const merchantMap = useMemo(() => {
+        if (!merchants) return {};
+        return makeMerchantMap(merchants);
+    }, [merchants]);
 
   return (
     <section className="bg-white mt-4 p-6 rounded-2xl shadow-sm border border-gray-300">
@@ -16,7 +35,7 @@ export default function PayList() {
           <thead>
             <tr className="text-left border-b bg-gray-50">
               <th className="p-3 text-sm font-semibold text-gray-600 w-24">날짜</th>
-              <th className="p-3 text-sm font-semibold text-gray-600 w-36">가맹점 코드</th>
+              <th className="p-3 text-sm font-semibold text-gray-600 w-36">가맹점</th>
               <th className="p-3 text-sm font-semibold text-gray-600 w-28">결제수단</th>
               <th className="p-3 text-sm font-semibold text-gray-600 w-32">금액</th>
               <th className="p-3 text-sm font-semibold text-gray-600 w-24">상태</th>
@@ -35,9 +54,8 @@ export default function PayList() {
                 >
                   <td className="p-3 text-sm text-gray-700">{formattedDate}</td>
 
-                  <td className="p-3 text-sm font-medium text-gray-700">
-                    {payment.mchtCode}
-                  </td>
+                  <td className="p-3 text-sm text-gray-600">
+                    {merchantMap[payment.mchtCode] ?? "알 수 없음"}</td>
 
                   <td className="p-3 text-sm text-gray-600">
                     {PayTypeMapping[payment.payType]}
