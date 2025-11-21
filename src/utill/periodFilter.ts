@@ -15,7 +15,6 @@ export function periodFilter(period: "WEEK" | "MONTH" | "YEAR", data: Payment[])
   let statusData:{ id:StatusType; value: number; percent: number; }[] = [];
   let successRate = 0;
 
-  // **여기 아래는 네 코드 그대로**
   if (period === "WEEK") {
     const weekData = filterWeek(data ?? []);
     const weekCounts = countWeek(data ?? []);
