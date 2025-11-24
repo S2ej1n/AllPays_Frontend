@@ -34,6 +34,7 @@ src
 │   ├── DashBoard            # 대시보드 페이지
 │   │   ├── com              # 대시보드 관련 세부 컴포넌트
 │   │   └── Dashboard.tsx
+│   ├── PayList.tsx          # 거래 내역 페이지
 │   └── Merchants.tsx        # 가맹점 관리 페이지
 ├── router                   # index.tsx로 라우터를 한번에 관리합니다
 ├── store                    
@@ -45,6 +46,7 @@ src
 - `apis/axios.ts` : `서버 공통 응답 타입`을 정의하고 `axiosInstance`를 생성하여 서버와의 연결시 공통으로 사용할 수 있게 하였습니다.
 - `apis/hooks.ts`: `Tanstack Query`를 이용해 `GET`호출 훅을 만들었습니다. endpoint만 바꾸어 재사용 가능할 수 있게했습니다.
 - `apis/payment.ts`: 훅을 사용해 `/payments/list`로 GET 요청을 하는 함수입니다.
+- `apis/merchant.ts`: 훅을 사용해 `가맹점과 관련된 API`로 GET 요청을 하는 함수입니다.
 
 - `pages/DashBoard/com` : Dashboard 페이지를 구성하는 컴포넌트들입니다. 총 매출&거래건수 카드, 그래프 등이 있습니다.
   
